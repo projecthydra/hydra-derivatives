@@ -50,6 +50,7 @@ module Hydra::Derivatives::Processors
       end
 
       def level_count_for_size(long_dim)
+        return 0 if long_dim < 96
         levels = 0
         level_size = long_dim
         while level_size >= 96

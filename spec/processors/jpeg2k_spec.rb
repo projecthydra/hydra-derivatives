@@ -7,9 +7,14 @@ describe Hydra::Derivatives::Processors::Jpeg2kImage do
   let(:image) { MiniMagick::Image.open(filename) }
 
   describe "#calculate_recipe" do
-    it "calculates the number of levels from a size" do
+    it "calculates the number of levels from a size above the minimum threshold" do
       dim = 7200
       expect(described_class.level_count_for_size(dim)).to eq(6)
+    end
+
+    it "calculates the number of levels as 0 from a size below the minimum threshold" do
+      dim = 50
+      expect(described_class.level_count_for_size(dim)).to eq(0)
     end
 
     it "calculates the compression rates for each quality layer" do
